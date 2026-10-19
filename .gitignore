@@ -1,0 +1,19 @@
+# Maven build output
+target/
+
+# IntelliJ IDEA settings
+.idea/
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Separate e-waste project
+/E-waste-project-main/

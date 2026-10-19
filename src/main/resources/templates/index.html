@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${name} + ' | Backend Developer'">Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script th:src="@{/js/main.js}" defer></script>
+</head>
+<body>
+<header class="top">
+  <nav class="pillnav">
+    <a class="brand" href="#top" th:text="${name}">Name</a>
+    <div class="links">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </div>
+    <a class="cta" href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-text">
+      <span class="status"><i></i>Open to fresher backend roles</span>
+      <h1>I build backend systems with <u>Java</u> and Spring Boot.</h1>
+      <p class="lead" th:text="${about}">About</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn" th:href="'mailto:' + ${email}">Email me</a>
+      </div>
+      <div class="stats">
+        <div><b th:text="${#lists.size(projects)}">3</b><span>Projects built</span></div>
+        <div><b>ICRIT 2025</b><span>Paper presented</span></div>
+        <div><b>7.08</b><span>CGPA</span></div>
+      </div>
+    </div>
+    <div class="photo">
+      <span class="initials" aria-hidden="true">MI</span>
+      <img th:src="@{/images/profile.jpg}" alt="Portrait of Mohamed Imran" onerror="this.remove()">
+    </div>
+    <a class="arrow" href="#projects" aria-label="Scroll to projects">
+      <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+      View my projects
+    </a>
+  </section>
+
+  <section id="projects">
+    <div class="head">
+      <h2>Projects</h2>
+      <a class="up" href="#top">Back to top &uarr;</a>
+    </div>
+    <div class="bento">
+      <article class="card reveal" th:each="p, it : ${projects}" th:classappend="${it.first} ? 'big' : ''" th:style="'--d:' + ${it.index * 0.15} + 's'">
+        <div>
+          <div class="badge" th:classappend="'c' + ${it.index % 3}" th:text="${#strings.substring(p.title,0,1)}">M</div>
+          <h3 th:text="${p.title}">Title</h3>
+          <p class="role" th:text="${p.role} + ', ' + ${p.year}">Role</p>
+          <p th:text="${p.summary}">Summary</p>
+        </div>
+        <div>
+          <ul class="tags"><li th:each="t : ${p.tech}" th:text="${t}">Tech</li></ul>
+          <a class="link" th:href="${p.link}" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <h2>Skills</h2>
+    <div class="chips">
+      <th:block th:each="s : ${skills}">
+        <span th:each="item : ${s.value}" th:text="${item}">Skill</span>
+      </th:block>
+    </div>
+  </section>
+
+  <section id="education" class="reveal">
+    <h2>Education</h2>
+    <p><strong>B.Tech Information Technology</strong>, Erode Sengunthar Engineering College, 2022 to 2026. CGPA 7.08.</p>
+    <p><strong>Higher Secondary</strong>, G.H.S.S Kangeyam, 2022. 69%.</p>
+  </section>
+
+  <section id="contact" class="reveal">
+    <h2>Contact</h2>
+    <p>Open to fresher backend roles. Email is the quickest way to reach me.</p>
+    <div class="actions">
+      <a class="btn primary" th:href="'mailto:' + ${email}" th:text="${email}">email</a>
+      <a class="btn" th:href="${linkedin}" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" th:href="${github}" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="phone" th:text="${phone}">phone</p>
+  </section>
+</main>
+
+<footer>Built with Java and Spring Boot.</footer>
+</body>
+</html>
